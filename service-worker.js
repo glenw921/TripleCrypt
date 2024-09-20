@@ -1,15 +1,15 @@
 // service-worker.js
 const CACHE_NAME = 'TripleCrypt-cache-v1';
 const urlsToCache = [
-  './',
-  './index.html',
-  './styles.css',
-  './app.js',
-  './manifest.json',
-  './favicon_24.png',
-  './favicon_48.png',
-  './icon-192.png',
-  './icon-512.png'
+  '/TripleCrypt/',
+  '/TripleCrypt/index.html',
+  '/TripleCrypt/styles.css',
+  '/TripleCrypt/app.js',
+  '/TripleCrypt/manifest.json',
+  '/TripleCrypt/favicon_24.png',
+  '/TripleCrypt/favicon_48.png',
+  '/TripleCrypt/icon-192.png',
+  '/TripleCrypt/icon-512.png'
 ];
 
 // Install service worker
