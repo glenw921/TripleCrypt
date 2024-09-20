@@ -1,7 +1,7 @@
 {
     "name": "TripleCrypt",
     "short_name": "TrpCrp",
-    "start_url": "/",
+    "start_url": "/TripleCrypt/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
