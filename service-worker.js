@@ -6,10 +6,10 @@ const urlsToCache = [
   '/TripleCrypt/styles.css',
   '/TripleCrypt/app.js',
   '/TripleCrypt/manifest.json',
-  '/TripleCrypt/favicon_24.png',
-  '/TripleCrypt/favicon_48.png',
-  '/TripleCrypt/icon-192.png',
-  '/TripleCrypt/icon-512.png'
+  '/TripleCrypt/TripleCrypt-x24.png',
+  '/TripleCrypt/TripleCrypt-x48.png',
+  '/TripleCrypt/TripleCrypt-x192.png',
+  '/TripleCrypt/TripleCrypt-x512.png'
 ];
 
 // Install service worker

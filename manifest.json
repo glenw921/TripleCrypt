@@ -7,16 +7,16 @@
     "theme_color": "#000000",
     "icons": [
       {
-        "src": "/TripleCrypt/favicon_48.png",
+        "src": "/TripleCrypt/TripleCrypt-x48.png",
         "sizes": "48x48",
         "type": "image/png"
       },      {
-        "src": "/TripleCrypt/icon-192.png",
+        "src": "/TripleCrypt/TripleCrypt-x192.png",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "/TripleCrypt/icon-512.png",
+        "src": "/TripleCrypt/TripleCrypt-x512.png",
         "sizes": "512x512",
         "type": "image/png"
       }
