@@ -1,5 +1,7 @@
 {
-    "_DEV_NOTES": "When running in Live Server add 1 pixel to the size of each LARGE image. For example, 512x512 --> 512x513. This resolves 404 errors in browser console.",
+    "_DEV_NOTE-01": "When running in Live Server add 1 pixel to the size of each LARGE image. For example, 512x512 --> 512x513. This resolves 404 errors in browser console.",
+    "_PUB_NOTE_01": "For publication, verify that each image size is correct. For example, an image that is 512x512 should be listed as 512x512, NOT 512x513.",
+    
     "name": "TripleCrypt",
     "short_name": "TrpCrp",
     "start_url": "/TripleCrypt/index.html", 
@@ -12,8 +14,28 @@
         "sizes": "44x44",
         "type": "image/png"
       },      {
+        "src": "/TripleCrypt/TC-600dpi-50px.png",
+        "sizes": "50x50",
+        "type": "image/png"
+      },      {
+        "src": "/TripleCrypt/TC-600dpi-71px.png",
+        "sizes": "71x71",
+        "type": "image/png"
+      },      {
+        "src": "/TripleCrypt/TC-600dpi-128px.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },      {
+        "src": "/TripleCrypt/TC-600dpi-150px.png",
+        "sizes": "150x150",
+        "type": "image/png"
+      },      {
         "src": "/TripleCrypt/TC-600dpi-192px.png",
         "sizes": "192x192",
+        "type": "image/png"
+      },      {
+        "src": "/TripleCrypt/TC-600dpi-310px.png",
+        "sizes": "310x310",
         "type": "image/png"
       },      {
         "src": "/TripleCrypt/TC-600dpi-512px.png",
