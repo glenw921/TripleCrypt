@@ -11,8 +11,12 @@
         "sizes": "44x44",
         "type": "image/png"
       },      {
+        "src": "/TripleCrypt/TC-600dpi-192px.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },      {
         "src": "/TripleCrypt/TC-600dpi-512px.png",
-        "sizes": "512x513",
+        "sizes": "512x512",
         "type": "image/png"
       }
     ]
