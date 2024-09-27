@@ -1,4 +1,5 @@
 {
+    "_DEV_NOTES": "When running in Live Server add 1 pixel to the size of each LARGE image. For example, 512x512 --> 512x513. This resolves 404 errors in browser console.",
     "name": "TripleCrypt",
     "short_name": "TrpCrp",
     "start_url": "/TripleCrypt/index.html", 
@@ -21,4 +22,4 @@
       }
     ]
   }
-  
+ 
