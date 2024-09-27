@@ -7,7 +7,7 @@ const urlsToCache = [
   ,'/TripleCrypt/app.js'
   ,'/TripleCrypt/manifest.json'
   //,'/TripleCrypt/TripleCrypt-x24.png'
-  //,'/TripleCrypt/TripleCrypt-x48.png'
+  ,'/TripleCrypt/TC-600dpi-44px.png'
   ,'/TripleCrypt/TC-600dpi-512px.png'
 ];
 

@@ -7,6 +7,10 @@
     "theme_color": "#000000",
     "icons": [
       {
+        "src": "/TripleCrypt/TC-600dpi-44px.png",
+        "sizes": "44x44",
+        "type": "image/png"
+      },      {
         "src": "/TripleCrypt/TC-600dpi-512px.png",
         "sizes": "512x513",
         "type": "image/png"
