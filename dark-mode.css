@@ -1,0 +1,244 @@
+﻿/* CSS Variables */
+:root {
+    --background-color: #000000; /* Black */
+    --header-background-color: #000000; /* Black */
+    --text-color: #ffffff; /* White */
+    --text-heading-color: #00ac19; /* Green */ /*#bb86fc;  /*Light purple */
+    --text-secondary-color: #005302; /* Dark Green */ /*#e0e0e0; /* Light gray */
+    --blockquote-border-color: #005302; /* Dark Green */ /*#bb86fc; /* Light purple */
+    --fieldset-border-color: #005302; /* Dark Green */ /*#444; /* Dark gray */
+    --pre-background-color: #2c2c2c; /* Dark gray */
+    --input-background-color: #2c2c2c; /* Dark gray */
+    --button-background-color: #00ac19; /* Green */ /*#bb86fc; /* Light purple */
+    --button-hover-background-color: #ffffff; /* White */
+    --button-hover-text-color: #121212; /* Dark background */
+    --table-border-color: #005302; /* Dark Green */ /*#444; /* Dark gray */
+    --table-header-background-color: #333; /* Darker gray */
+    --alert-background-color: #ff5252; /* Red */
+    --footer-background-color: #000000; /* Black */
+
+    --spacing-small: 10px; /* Small spacing */
+    --spacing-medium: 20px; /* Medium spacing */
+    --spacing-large: 40px; /* Large spacing */
+    --border-radius: 5px; /* Rounded corners */
+    --font-size-base: 16px; /* Base font size */
+    --font-size-heading: 24px; /* Heading font size */
+    --font-size-small: 14px; /* Small text size */
+    --font-size-tiny: 9px; /* Small text size */
+    --transition-duration: 0.3s; /* Standard transition duration */
+}
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-duration), color var(--transition-duration); /*TODO: Add code to demonstrate this effect.*/
+    padding: var(--spacing-medium);
+    font-size: var(--font-size-base);
+    text-align: center;
+}
+
+/* All <a> links, unless otherwise specified*/
+a {
+    color: var(--text-secondary-color); 
+    /*text-decoration: none; /* Optional: Removes underline */
+    font-style: italic;
+    transition: color var(--transition-duration); /* Optional: Smooth transition effect */
+}
+
+    a:hover {
+        color: var(--text-color); /* Optional: Changes color on hover */
+    }
+
+/* Header Styling */
+header {
+    background-color: var(--header-background-color);
+    padding: var(--spacing-medium);
+    text-align: center;
+}
+
+    header h1 {
+        color: var(--text-heading-color);
+        font-size: var(--font-size-heading);
+    }
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-medium);
+}
+
+nav a {
+    color: var(--text-heading-color);
+    text-decoration: none;
+    font-style: normal; /* Overrides "font-style: italic" set on earlier "a" class.*/
+    transition: color var(--transition-duration);
+}
+
+    nav a:hover {
+        color: var(--text-color);
+    }
+
+/* Main Content Styling */
+main {
+    padding: var(--spacing-medium);
+}
+
+main h2, h3 {
+    color: var(--text-heading-color);
+    font-size: var(--font-size-heading);
+}
+
+main p, li, blockquote, label, textarea, input, select, button, table {
+    color: var(--text-color);
+    font-size: var(--font-size-base);
+}
+
+main blockquote {
+    border-left: 4px solid var(--blockquote-border-color);
+    padding-left: var(--spacing-small);
+    font-style: italic;
+    margin: var(--spacing-medium) 0;
+}
+
+main pre {
+    color: var(--text-secondary-color);
+    background-color: var(--pre-background-color);
+    padding: var(--spacing-small);
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    font-size: var(--font-size-small);
+}
+
+/* Lists Styling */
+main ul, ol {
+    margin: var(--spacing-medium);
+    padding-left: var(--spacing-large);
+}
+
+/* Form Elements Styling */
+main form {
+    margin: var(--spacing-medium) 0;
+    padding: var(--spacing-medium);
+    background-color: var(--header-background-color);
+    border-radius: var(--border-radius);
+}
+
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: var(--spacing-small);
+    margin: var(--spacing-small) 0;
+    border-radius: var(--border-radius);
+    border: none;
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    font-size: var(--font-size-base);
+}
+
+fieldset {
+    margin: var(--spacing-medium) 0;
+    padding: var(--spacing-small);
+    border: 1px solid var(--table-border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--header-background-color);
+}
+
+legend {
+    color: var(--text-heading-color);
+    font-weight: bold;
+    font-size: var(--font-size-base);
+    padding: 0 var(--spacing-small);
+}
+
+fieldset > * { /* This CSS selector ("fieldset > *") applies the styles to all elements under the <fieldset>. */
+    margin-right: var(--spacing-small); /*Adds spacing between the elements */
+}
+
+button {
+    background-color: var(--button-background-color);
+    color: var(--text-color);
+    padding: var(--spacing-small) var(--spacing-medium);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-duration);
+    font-size: var(--font-size-base);
+    margin-top: var(--spacing-medium)
+}
+
+    button:hover {
+        background-color: var(--button-hover-background-color);
+        color: var(--button-hover-text-color);
+    }
+
+/* Table Wrapper Styling */
+.table-wrapper {
+    border-radius: var(--border-radius); /* Rounded corners */
+    overflow: hidden; /* Ensures rounded corners are properly clipped */
+    border: 1px solid var(--table-border-color); /* Adds a border to the wrapper */
+    margin: var(--spacing-medium) 0; /* Consistent spacing */
+}
+
+    .table-wrapper h2 {
+        border-top: 1px solid var(--table-border-color);
+        border-left: 1px solid var(--table-border-color);
+        border-right: 1px solid var(--table-border-color);
+        padding-left: var(--spacing-small);
+        border-radius: var(--border-radius) var(--border-radius) 0 0; /* Round top corners only */
+    }
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    table th, table td {
+        border: 1px solid var(--table-border-color);
+        padding: var(--spacing-small);
+        text-align: left;
+        font-size: var(--font-size-base);
+    }
+
+    table th {
+        background-color: var(--table-header-background-color);
+        color: var(--text-color);
+    }
+
+/* Semantic Elements Styling */
+main article, aside {
+    margin: var(--spacing-medium) 0;
+    padding: var(--spacing-medium);
+    background-color: var(--header-background-color);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+}
+
+/* Alert Styling */
+.alert {
+    padding: var(--spacing-medium);
+    background-color: var(--alert-background-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-medium);
+    font-size: var(--font-size-base);
+}
+
+/* Footer Styling */
+footer {
+    background-color: var(--footer-background-color);
+    padding: var(--spacing-small);
+    text-align: center;
+    color: var(--text-secondary-color);
+    margin-top: var(--spacing-medium);
+    font-size: var(--font-size-tiny);
+}
