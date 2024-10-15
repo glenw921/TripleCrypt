@@ -1,5 +1,5 @@
 // service-worker.js
-const CACHE_NAME = 'TripleCrypt-cache-v9';
+const CACHE_NAME = 'TripleCrypt-cache-v10';
 const urlsToCache = [
   '/TripleCrypt/'
   ,'/TripleCrypt/index.html'
@@ -7,19 +7,21 @@ const urlsToCache = [
   ,'/TripleCrypt/dark-mode.css'
   ,'/TripleCrypt/app.js'
   ,'/TripleCrypt/manifest.json'
-  // -- ICONS --
-  //,'/TripleCrypt/TripleCrypt-x24.png'
-  ,'/TripleCrypt/TC-600dpi-44px.png'
-  ,'/TripleCrypt/TC-600dpi-50px.png'
-  ,'/TripleCrypt/TC-600dpi-66px.png'
-  ,'/TripleCrypt/TC-600dpi-71px.png'
-  ,'/TripleCrypt/TC-600dpi-128px.png'
-  ,'/TripleCrypt/TC-600dpi-150px.png'
-  ,'/TripleCrypt/TC-600dpi-192px.png'
-  ,'/TripleCrypt/TC-600dpi-310px.png'
-  ,'/TripleCrypt/TC-600dpi-512px.png'
+  // -- LIBRARY SCRIPTS --
+  ,'/TripleCrypt/assets/scripts/3rdPartyLibraries/idb8.png'
   // -- TECH DEMONSTRATORS --
   ,'/TripleCrypt/DGIF_FolderHandle_via_idb.html'
+  // -- IMAGES --
+  //,'/TripleCrypt/assets/images/other/TripleCrypt-x24.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-44px.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-50px.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-66px.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-71px.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-128px.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-150px.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-192px.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-310px.png'
+  ,'/TripleCrypt/assets/images/other/TC-600dpi-512px.png'
 ];
 
 // Install service worker

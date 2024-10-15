@@ -1,0 +1,17 @@
+INVENTORY OF 3RD PARTY SCRIPTS
+=====================================
+
+1. FILE NAME: idb8.js
+   DESCRIPTION: Wrapper for IndexedDB. See https://github.com/jakearchibald/idb/blob/main/README.md
+   SOURCE: https://cdn.jsdelivr.net/npm/idb@8/build/umd.js
+   HASH: (TODO: figure out what to put here and how to use the hash for code security.)
+
+2. FILE NAME: 
+   DESCRIPTION: 
+   SOURCE: 
+   HASH: 
+
+3. FILE NAME: 
+   DESCRIPTION: 
+   SOURCE: 
+   HASH: 
