@@ -94,6 +94,7 @@ main {
 }
 
 main h2, h3 {
+    padding-top: var(--spacing-medium);
     color: var(--text-heading-color);
     font-size: var(--font-size-heading);
 }

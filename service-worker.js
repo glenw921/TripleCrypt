@@ -3,10 +3,11 @@ const CACHE_NAME = 'TripleCrypt-cache-v8';
 const urlsToCache = [
   '/TripleCrypt/'
   ,'/TripleCrypt/index.html'
-  ,'/TripleCrypt/styles.css'
+  ,'/TripleCrypt/styles.css' // TODO: See about removing this.
   ,'/TripleCrypt/dark-mode.css'
   ,'/TripleCrypt/app.js'
   ,'/TripleCrypt/manifest.json'
+  // -- ICONS --
   //,'/TripleCrypt/TripleCrypt-x24.png'
   ,'/TripleCrypt/TC-600dpi-44px.png'
   ,'/TripleCrypt/TC-600dpi-50px.png'
@@ -17,6 +18,8 @@ const urlsToCache = [
   ,'/TripleCrypt/TC-600dpi-192px.png'
   ,'/TripleCrypt/TC-600dpi-310px.png'
   ,'/TripleCrypt/TC-600dpi-512px.png'
+  // -- TECH DEMONSTRATORS --
+  ,'/TripleCrypt/DGIF_FolderHandle_via_idb.html'
 ];
 
 // Install service worker

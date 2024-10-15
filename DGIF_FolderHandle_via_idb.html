@@ -1,0 +1,450 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DGIF_FolderHandle_via_idb.html</title>
+    <script src="assets/scripts/3rdPartyLibraries/idb8.js"></script> <!-- External Script Reference -->
+    <style>
+        body {
+            background-color: rgb(100, 130, 100); /* a gray-green */
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 10px;
+        }
+
+        button {
+            margin: 0px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        #eDivFileCount {
+            font-size: 0.9em;
+            margin-top: 0px;
+        }
+
+        #eTxtMessageLog {
+            width: 100%;
+            height: calc(100vh - 550px);
+            margin-top: 0px;
+        }
+
+        #eDivFilesDisplay, #eDivMessageDisplay {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        #eSltFileList {
+            width: 200px;
+        }
+
+        #eTxtFileContent {
+            width: calc(100% - 210px);
+            margin-left: 5px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        TODO list: 
+        1. Add a DGUI project to experiment with "Loading..." message display and a "spinner" to indicate UI is processing.
+    -->
+    <div class="container">
+        <h1>DGIF - Storing Folder Handles in IndexedDB via idb Library</h1>
+        <div id="eDivFolderSelect" style="margin-bottom: 10px;">
+            <button id="eBtnSelectFolder">Select Folder</button>
+            <input type="text" id="eInpSelectedFolderName" readonly style="margin-left: 0px; width: 200px;" placeholder="<Please select a folder>" />
+            <button id="eBtnForgetFolder">Forget Folder</button>
+            <button id="eBtnDeleteDB">Delete Database</button>
+        </div>
+        <div id="eDivFileButtons">
+            <button id="eBtnShowFiles">Show Files</button>
+            <button id="eBtnCreateLogFile">Create Log File</button>
+            <button id="eBtnOpenLogFile">Open File</button>
+            <button id="eBtnDeleteLogFile">Delete Log File</button>
+        </div>
+        <div id="eDivFilesDisplay" style="display: flex; align-items: flex-start;">
+            <div style="display: flex; flex-direction: column;">
+                <label for="eSltFileList">Selected Folder Content</label>
+                <select id="eSltFileList" size="10" style="flex-grow: 1; height: 300px;"></select>
+                <div id="eDivFileCount">File Count: 0</div>
+            </div>
+            <div style="margin-left: 10px; width: calc(100% - 220px);">
+                <label for="eTxtFileContent" style="margin-left: 5px">Log File Content</label>
+                <textarea id="eTxtFileContent" readonly style="width: 100%; height: 294px;" placeholder="<Select a log file (.txt) to view its content>"></textarea>
+            </div>
+        </div>
+        <div id="eDivMessageDisplay">
+            <label for="eTxtMessageLog">Runtime Message Log</label>
+            <textarea id="eTxtMessageLog" readonly></textarea>
+        </div>
+    </div>
+    <script>
+        // DGIF_FolderHandle_via_idb.js
+
+        // TODO:
+        // 1. See if navigator.storage.persist() will be granted if this is installed as a PWA.
+
+        // Declare global references. Will init after DOM loaded.
+        let eTxtMessageLog = null;
+        let eSltFileList = null;
+        let eDivFileCount = null;
+        let eTxtFileContent = null;
+        let eInpSelectedFolderName = null;
+
+        // Do activities that are gated by completion of DOM load.
+        // (Allowing anonymous function because this is never called an other time.)
+        window.addEventListener('load', async (event) => {
+            try {
+                // Init global references to frequently accessed DOM elements.
+                eTxtMessageLog = document.getElementById('eTxtMessageLog');
+                eSltFileList = document.getElementById('eSltFileList');
+                eDivFileCount = document.getElementById('eDivFileCount');
+                eTxtFileContent = document.getElementById('eTxtFileContent');
+                eInpSelectedFolderName = document.getElementById('eInpSelectedFolderName');
+
+                // Connect event listeners for user interactions.
+                eSltFileList.onchange = onFileSelected;
+                document.getElementById('eBtnSelectFolder').onclick = onSelectFolder;
+                document.getElementById('eBtnForgetFolder').onclick = onForgetFolder;
+                document.getElementById('eBtnDeleteDB').onclick = onDeleteDB;
+                document.getElementById('eBtnShowFiles').onclick = onShowFiles;
+                document.getElementById('eBtnCreateLogFile').onclick = onCreateLogFile;
+                document.getElementById('eBtnOpenLogFile').onclick = onOpenFile;
+                document.getElementById('eBtnDeleteLogFile').onclick = onDeleteLogFile;
+
+                logMessage('load event', 'DOM load and init complete.')
+
+                // Check for DB and folder, then load UI.
+                const dbExists = await checkDatabaseExists('folderHandleDB');
+                logMessage('load event', `The "folderHandleDB" database exists?: ${dbExists}`)
+                if (dbExists) {
+                    const folderHandle = await fetchFolderHandle();
+                    if (folderHandle) {
+                        eInpSelectedFolderName.value = folderHandle.name;
+                        await onShowFiles();
+                    }
+                }
+            } catch (error) {
+                logMessage('load event', 'An error occurred during initialization:', error);
+            }
+        });
+
+        // Returns the characters of the input string that follow the last ".", all in lower case.
+        function getFileExtention(fileName) { 
+            if (fileName) {
+                const parts = fileName.toLowerCase().split('.');
+                return (parts.length > 1) ? parts.pop() : '';
+            } else {
+                return '';
+            }
+        }
+
+        // Function to log messages to the message log textarea with timestamp
+        // PARM: source - the name of the function submitting the log message.
+        function logMessage(source, message, error = null) {
+            let finalMessage = (source ? `${source}: ${message}` : message);
+
+            if (error) {
+                finalMessage += ` ${error.name || 'Error'}: "${error.message || error}"`;
+            }
+
+            const timestamp = new Date().toLocaleTimeString();
+            eTxtMessageLog.value += `[${timestamp}] ${finalMessage}\n`;
+            eTxtMessageLog.scrollTop = eTxtMessageLog.scrollHeight;
+        }
+
+        // Resets the UI content to its state after DOM load and before any data was added to display controls.
+        function clearUI() {
+            eInpSelectedFolderName.value = '<Please select a folder>';
+            eSltFileList.innerHTML = '';
+            eDivFileCount.textContent = 'File Count: 0';
+            eTxtFileContent.value = '';
+
+            logMessage('clearUI()', 'UI cleared for folder and file related content.')
+        }
+
+        // Provides ability to check if a database exists, without creating it. (Returns: true/false)
+        async function checkDatabaseExists(dbName) {
+            try {
+                // Using IndexedDB directly, rather than via idb, so that we don't have to call upgrade(db) and cause exception.
+                const databases = await indexedDB.databases();
+                const dbExists = databases.some(db => db.name === dbName);
+
+                if (dbExists) {
+                    logMessage('checkDatabaseExists(dbName)', `Database "${dbName}" already exists.`);
+                } else {
+                    logMessage('checkDatabaseExists(dbName)', `Database "${dbName}" does not exist.`);
+                }
+
+                return dbExists;
+            } catch (error) {
+                logMessage('checkDatabaseExists(dbName)', 'Error occurred while attempting to detect database existence:', error);
+                return false;
+            }
+        }
+
+        // Function to create the database and return reference
+        async function openOrCreateDb() {
+            let isCreated = false;
+            try {
+                const db = await idb.openDB('folderHandleDB', 1, {
+                    upgrade(db) {
+                        if (!db.objectStoreNames.contains('folderHandles')) {
+                            db.createObjectStore('folderHandles', { keyPath: 'id', autoIncrement: true });
+                            isCreated = true;
+                        }
+                    }
+                });
+                if (isCreated) {
+                    logMessage('openOrCreateDb()', 'Database "folderHandleDB" was created successfully.');
+
+                    // Attempt to make storage persistent upon creating the database
+                    const isPersisted = await navigator.storage.persist();
+                    if (!isPersisted) {
+                        logMessage('openOrCreateDb()', 'Persistent storage permission denied. IndexedDB may be cleared during cleanup. Installing app as PWA may resolve this.');
+                    } else {
+                        logMessage('openOrCreateDb()', 'Persistent storage permission granted.');
+                    }
+                } else {
+                    logMessage('openOrCreateDb()', 'Database "folderHandleDB" was already present and opened.');
+                }
+                return db;
+            } catch (error) {
+                logMessage('openOrCreateDb()', 'Error creating database: ', error);
+            }
+        }
+
+        // Function to delete the database
+        async function onDeleteDB() {
+            try {
+                await idb.deleteDB('folderHandleDB');
+                logMessage('onDeleteDB()', 'Database "folderHandleDB" deleted successfully.');
+                clearUI();
+            } catch (error) {
+                logMessage('onDeleteDB()', 'Error deleting database: ', error);
+            }
+        }
+
+        // Function to read and construct folder handle from database record. Throws error on fail.
+        async function fetchFolderHandle() {
+            try {
+                const db = await openOrCreateDb();
+                const tx = db.transaction('folderHandles', 'readonly');
+                const folderRecord = await tx.store.get('selectedFolder');
+                db.close();
+
+                if (!folderRecord || !folderRecord.handle) {
+                    return null;
+                }
+
+                const folderHandle = folderRecord.handle;
+
+                // Verify if the permission still exists for the folder handle.
+                if ((await folderHandle.queryPermission({ mode: 'readwrite' })) !== 'granted') {
+                    logMessage('fetchFolderHandle()', 'Folder access permissions are not granted. Requesting access again...');
+                    const permissionResult = await folderHandle.requestPermission({ mode: 'readwrite' });
+                    if (permissionResult !== 'granted') {
+                        logMessage('fetchFolderHandle()', 'Permission to access the folder was not granted.');
+                        return null;
+                    }
+                }
+
+                return folderHandle;
+            } catch (error) {
+                logMessage('fetchFolderHandle()', 'Error occurred:', error);
+                clearUI();
+                return null;
+            }
+        }
+
+        // Function to select a folder and request persistent access
+        async function onSelectFolder() {
+            try {
+                const db = await openOrCreateDb(); // Ensure database is created/opened before using it
+
+                const directoryHandle = await window.showDirectoryPicker();
+                eInpSelectedFolderName.value = directoryHandle.name;
+
+                // Store directory handle in IndexedDB
+                const tx = db.transaction('folderHandles', 'readwrite');
+                await tx.store.put({ id: 'selectedFolder', handle: directoryHandle });
+                await tx.done;
+                db.close();
+                logMessage('onSelectFolder()', 'Folder selected & stored: ' + directoryHandle.name);
+
+                // Update file list after selecting a new folder
+                await onShowFiles();
+            } catch (error) {
+                logMessage('onSelectFolder()', 'Failed to select folder - ', error);
+            }
+        }
+
+
+        // Function to forget the selected folder
+        async function onForgetFolder() {
+            try {
+                const db = await openOrCreateDb();
+                const tx = db.transaction('folderHandles', 'readwrite');
+                await tx.store.delete('selectedFolder');
+                await tx.done;
+                db.close();
+
+                logMessage('onForgetFolder()', 'Folder forgotten successfully.');
+                clearUI();
+            } catch (error) {
+                logMessage('onForgetFolder()', 'Failed to forget folder - ', error);
+            }
+        }
+
+        // Function to show files in the selected folder
+        async function onShowFiles() {
+            try {
+                const directoryHandle = await fetchFolderHandle();
+                if (!directoryHandle) {
+                    logMessage('onShowFiles()', 'No folder is selected.');
+                    return;
+                }
+
+                eSltFileList.innerHTML = '';
+                let count = 0;
+                for await (const entry of directoryHandle.values()) {
+                    if (entry.kind === 'file') {
+                        const option = document.createElement('option');
+                        option.textContent = entry.name;
+                        eSltFileList.appendChild(option);
+                        count++;
+                    }
+                }
+                eDivFileCount.textContent = `File Count: ${count}`;
+                logMessage('onShowFiles()', 'Files displayed successfully.');
+            } catch (error) {
+                logMessage('onShowFiles()', 'Failed to display files - ', error);
+            }
+        }
+
+        // Function to create a log file
+        async function onCreateLogFile() {
+            try {
+                const directoryHandle = await fetchFolderHandle();
+                if (!directoryHandle) {
+                    logMessage('onCreateLogFile()', 'No folder is selected.');
+                    return;
+                }
+
+                // Move Message Logs to new file.
+                const logContent = eTxtMessageLog.value;
+                eTxtMessageLog.value = '';
+
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const fileName = `DGFI_MsgLog_${timestamp}.txt`;
+
+                const fileHandle = await directoryHandle.getFileHandle(fileName, { create: true });
+                const writable = await fileHandle.createWritable();
+                await writable.write(logContent);
+                await writable.close();
+
+                logMessage('onCreateLogFile()', `Prior content moved to new log file: ${fileName}`);
+
+                // Update file list and select new log file
+                await onShowFiles();
+                eSltFileList.value = fileName;
+                await onFileSelected();
+                //eTxtFileContent.value = logContent; // TODO: Select the file name, rather than just loading its content.
+            } catch (error) {
+                logMessage('onCreateLogFile()', 'Failed to create log file - ', error);
+            }
+        }
+
+        // Function to open a file
+        async function onOpenFile() {
+            try {
+                const directoryHandle = await fetchFolderHandle();
+                if (!directoryHandle) {
+                    logMessage('onOpenFile()', 'No folder is selected.');
+                    return;
+                }
+
+                const selectedFileName = eSltFileList.value;
+                if (!selectedFileName) {
+                    logMessage('onOpenFile()', 'No file selected.');
+                    return;
+                }
+
+                logMessage('onOpenFile()', `Attempting to open file "${selectedFileName}" in its native app.`);
+                const fileHandle = await directoryHandle.getFileHandle(selectedFileName);
+                const file = await fileHandle.getFile();
+                const url = URL.createObjectURL(file);
+                window.open(url, '_blank'); // Opens a new browser tab specific to the selected file type, if possible.
+
+            } catch (error) {
+                logMessage('onOpenFile()', 'Failed to open log file - ', error);
+            }
+        }
+
+        // Function to delete a log file
+        async function onDeleteLogFile() {
+            try {
+                const directoryHandle = await fetchFolderHandle();
+                if (!directoryHandle) {
+                    logMessage('onDeleteLogFile()', 'No folder is selected.');
+                    return;
+                }
+
+                const selectedFileName = eSltFileList.value;
+                if (!selectedFileName) {
+                    logMessage('onDeleteLogFile()', 'No file selected.');
+                    return;
+                }
+                await directoryHandle.removeEntry(selectedFileName);
+                logMessage('onDeleteLogFile()', 'Deleted file: ' + selectedFileName);
+
+                // Update file content and file list
+                eTxtFileContent.value = '<Select a file to view its content>';
+                await onShowFiles();
+            } catch (error) {
+                logMessage('onDeleteLogFile()', 'Failed to delete log file - ', error);
+            }
+        }
+
+        // Function to handle file selection
+        async function onFileSelected() {
+            try {
+                const directoryHandle = await fetchFolderHandle();
+                if (!directoryHandle) {
+                    logMessage('onFileSelected()', 'No folder is selected.');
+                    return;
+                }
+
+                const selectedFileName = eSltFileList.value;
+                if (!selectedFileName) {
+                    logMessage('onFileSelected()', 'No file selected.');
+                    return;
+                }
+
+                const fnExtension = getFileExtention(selectedFileName); 
+
+                if (fnExtension == 'txt' || fnExtension == 'log' || fnExtension == 'json') {
+                    const fileHandle = await directoryHandle.getFileHandle(selectedFileName);
+                    const file = await fileHandle.getFile();
+                    const content = await file.text();
+                    eTxtFileContent.value = content;
+                }
+                else {
+                    eTxtFileContent.value = '<Select a log file (.txt) to view its content>';
+                }
+            } catch (error) {
+                logMessage('onFileSelected()', 'Failed to display selected file content - ', error);
+            }
+        }
+    </script>
+</body>
+
+</html>
