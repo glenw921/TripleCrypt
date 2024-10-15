@@ -3,7 +3,7 @@
     "_PUB_NOTE_01": "For publication, verify that each image size is correct. For example, an image that is 512x512 should be listed as 512x512, NOT 512x513.",
     
     "name": "TripleCrypt",
-    "short_name": "TrpCrp",
+    "short_name": "TripleCrypt",
     "start_url": "/TripleCrypt/index.html", 
     "display": "standalone",
     "background_color": "#ffffff",
