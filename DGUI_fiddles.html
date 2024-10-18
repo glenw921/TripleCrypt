@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DGUI_fiddles.html</title>
+    <style>
+        @font-face { /* For all UI element text, not user content. */
+            font-family: 'robotoregular';
+            src: url('../assets/fonts/roboto-regular-webfont.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face { /* For all user content, not UI element text. */
+            font-family: 'atkinson_hyperlegibleregular';
+            src: url('../assets/fonts/atkinsonhyperlegible-regular-webfont.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        [data-fontRole="content"] {
+            font-family: atkinson_hyperlegibleregular, serif; /* Font for all user content, not UI element text. */
+        }
+        [data-fontRole="control"] {
+            font-family: robotoregular, sans-serif; /* Font for UI elements, not user content. */
+            line-height: 1.25;
+        }
+
+        /* ============================================================================================= */
+
+        html {
+            border: 5px dashed red;
+            height: 100%;
+            box-sizing: border-box; /* Make all elements measure 'height' and 'width' inclusive of boarders. */
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit; /* Will inherit from <html> element. */
+        }
+
+        body {
+            border: 5px dotted blue;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            align-items: center;
+        }
+
+        h1 {
+            background-color: black;
+            color: black;
+            text-shadow: 0 0 12px #29fb00;
+
+            /*visibility: hidden;*/ /* Hidden, but holding space. */
+            /*display: none;*/ /* Hidden, and NOT holding space. */
+            width: 50%;
+            border: 1px solid black;
+            margin: auto;
+            padding: 0px 10px;
+            text-align: center;
+            font-variant: small-caps;
+
+            /* Set a fixed location */
+            /*position: absolute;*/ /*fixed;*/
+            /*z-index: 1;*/
+            /*top: 50px;*/
+            /*left: 10px;*/
+
+            /*text-transform: uppercase;*/
+            /*font-style: italic;*/
+            /*font-family: Verdana;*/
+            /*font-size: 25px;*/
+            /*font-weight: bold;*/
+        }
+
+        a { /* All links */
+            width: 50%;
+            display: block;
+            border: 1px solid blue;
+            padding: 2px;
+            margin: 6px auto;
+            text-align: center;
+            text-decoration: none;
+        }
+            a:link { /* Links not yet visited */
+                color: blue;
+            }
+            a:visited { /* Links that have been visited */
+                color: green;
+            }
+            a:hover { /* On mouse-over */
+                color: red;
+                text-decoration: underline;
+            }
+
+        .div-text {
+            width: 90%;
+            height: 150px;
+            outline: 1px auto red;
+            outline-offset: 5px;
+            border: 1px solid blue;
+            padding: 10px;
+            margin: 5px auto;
+            overflow-y: auto;
+            overflow-x: auto;
+            text-indent: 20px;
+        }
+
+        button {
+            margin: 6px auto;
+            display: block; /* Causes the button to be centered in its container */
+        }
+
+        .div-container {
+            border: 1px solid red;
+            /*outline: 1px auto red;*/
+            padding: 5px; /*0px 0px 0px 20px;*/
+            width: max-content; /* 50%; */
+            margin: 0px auto;
+        }
+
+        .div-wrapper {
+            outline: 1px auto green;
+            padding: 0px;
+            width: max-content;
+            margin: 5px auto;
+        }
+
+        .table-label {
+            color: darkgreen;
+            padding: 2px 10px;
+            margin: 0px;
+            border: 1px solid green;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        thead {
+            border-bottom: 2px solid green;
+        }
+
+        th, td, tr {
+            border: 1px solid green;
+            text-align: center;
+            padding: 0px 5px;
+        }
+
+        th {
+            padding: 1px 5px;
+            background-color: lightgray;
+        }
+
+        ul, ol {
+            list-style-type: square;
+            border: 1px solid green;
+            padding: 0px 0px 0px 20px;
+            margin: 0px;
+        }
+
+        li {
+            padding-right: 4px;
+            margin: 0px;
+        }
+
+        p {
+            border: 1px solid black;
+            margin: 0px auto;
+            text-align: center;
+        }
+
+        strong {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1 data-fontRole="control">My Fiddles</h1>
+    <a href="https://glenw921.github.io/TripleCrypt/" data-fontRole="control">Link to TripleCrypt</a>
+
+    <div id="eDivFontDisplay" data-fontRole="content" class="div-text">
+        Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua.
+        iIlLtT1|:;.,'`~-/\[]0Oo
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+        88888888888888888888888888888888888888888888888888888888888888888888888888
+    </div>
+    <button id="eBtnFontToggler" data-fontRole="control" type="button">Font: content</button>
+
+    <!-- Table Elements -->
+    <section>
+        <div data-fontRole="control" class="div-wrapper">
+            <h3 class="table-label">My Table Label</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Occupation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>28</td>
+                        <td>Software Developer</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>34</td>
+                        <td>Designer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div data-fontRole="control" class="div-container">
+        <ul>
+            <li>Coffee</li>
+            <li>Tea</li>
+            <li>Coca Cola</li>
+        </ul>
+    </div>
+
+    <p data-fontRole="control">This is a <strong>paragraph</strong></p>
+
+    <script>
+        // Use DOMContentLoaded to ensure the DOM is ready.
+        // No external resources are used, so no need to wait for the "window 'load'" event.
+        // Allowing anonymous function because this is never called any other time.
+        // Encapulating this code in a function called one time keeps the global namespace clean.
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cache the elements once after the DOM is loaded
+            const eDivFontDisplay = document.getElementById('eDivFontDisplay');
+            const eBtnFontToggler = document.getElementById('eBtnFontToggler');
+
+            // Attach the event listener
+            eBtnFontToggler.addEventListener('click', doFontToggle);
+
+            // Define the toggle function within this scope
+            function doFontToggle() {
+                let currentRole = eDivFontDisplay.getAttribute('data-fontRole');
+
+                if (currentRole === 'content') {
+                    eDivFontDisplay.setAttribute('data-fontRole', 'control');
+                    eDivFontDisplay.getAttribute
+                    eBtnFontToggler.innerText = "Font: control";
+                } else {
+                    eDivFontDisplay.setAttribute('data-fontRole', 'content');
+                    eBtnFontToggler.textContent = "Font: content";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

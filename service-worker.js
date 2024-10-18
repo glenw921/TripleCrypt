@@ -1,5 +1,5 @@
 // service-worker.js
-const CACHE_NAME = 'TripleCrypt-cache-v10';
+const CACHE_NAME = 'TripleCrypt-cache-v11';
 const urlsToCache = [
   '/TripleCrypt/'
   ,'/TripleCrypt/index.html'
@@ -7,10 +7,14 @@ const urlsToCache = [
   ,'/TripleCrypt/dark-mode.css'
   ,'/TripleCrypt/app.js'
   ,'/TripleCrypt/manifest.json'
+  // -- FONTS --
+  ,'/TripleCrypt/assets/fonts/atkinsonhyperlegible-regular-webfont.woff2'
+  ,'/TripleCrypt/assets/fonts/roboto-regular-webfont.woff2'
   // -- LIBRARY SCRIPTS --
   ,'/TripleCrypt/assets/scripts/3rdPartyLibraries/idb8.png'
   // -- TECH DEMONSTRATORS --
   ,'/TripleCrypt/DGIF_FolderHandle_via_idb.html'
+  ,'/TripleCrypt/DGUI_fiddles.html'
   // -- IMAGES --
   //,'/TripleCrypt/assets/images/other/TripleCrypt-x24.png'
   ,'/TripleCrypt/assets/images/other/TC-600dpi-44px.png'
