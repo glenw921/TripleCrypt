@@ -1,4 +1,4 @@
-﻿/* CSS Variables */
+﻿/* ===BEGIN: CSS Variables ========================================================================================== */
 :root {
     --background-color: #000000; /* Black */
     --header-background-color: #000000; /* Black */
@@ -27,14 +27,50 @@
     --font-size-tiny: 9px; /* Small text size */
     --transition-duration: 0.3s; /* Standard transition duration */
 }
+/* ===END: CSS Variables ========================================================================================== */
 
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+/* ===BEGIN: Font Confiturations ========================================================================================== */
+@font-face { /* For all UI element text, not user content. */
+    font-family: 'robotoregular';
+    /*src: url('../assets/fonts/roboto-regular-webfont.woff2') format('woff2');*/
+    src: url('./assets/fonts/roboto-regular-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face { /* For all user content, not UI element text. */
+    font-family: 'atkinson_hyperlegibleregular';
+    /*src: url('../assets/fonts/atkinsonhyperlegible-regular-webfont.woff2') format('woff2');*/
+    src: url('assets/fonts/atkinsonhyperlegible-regular-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
+[data-fontRole="content"] {
+    font-family: atkinson_hyperlegibleregular, serif; /* Font for all user content, not UI element text. */
+}
+[data-fontRole="control"] {
+    font-family: robotoregular, sans-serif; /* Font for UI elements, not user content. */
+    line-height: 1.25;
+}
+/* ===END: Font Confiturations ========================================================================================== */
+
+
+/* ===BEGIN: Global Settings ========================================================================================== */
+html {
+    /*height: 100%;*/
+    box-sizing: border-box; /* Make all elements measure 'height' and 'width' inclusive of boarders. */
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; /* Will inherit from <html> element. */
+}
+/* ===END: Global Settings ========================================================================================== */
+
+
+/* ===BEGIN: Element Selectors ========================================================================================== */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -243,3 +279,6 @@ footer {
     margin-top: var(--spacing-medium);
     font-size: var(--font-size-tiny);
 }
+/* ===END: Element Selectors ========================================================================================== */
+
+
