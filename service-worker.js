@@ -1,5 +1,5 @@
 // service-worker.js
-const CACHE_NAME = 'TripleCrypt-cache-v13';
+const CACHE_NAME = 'TripleCrypt-cache-v14';
 const urlsToCache = [
   '/TripleCrypt/'
   ,'/TripleCrypt/index.html'

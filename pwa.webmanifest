@@ -1,0 +1,60 @@
+{
+    "_DEV_NOTE-01": "When running in Live Server add 1 pixel to the size of each LARGE image. For example, 512x512 --> 512x513. This resolves 404 errors in browser console.",
+    "_PUB_NOTE_01": "For publication, verify that each image size is correct. For example, an image that is 512x512 should be listed as 512x512, NOT 512x513.",
+    
+    "name": "TripleCrypt",
+    "short_name": "TripleCrypt",
+    "start_url": "/TripleCrypt/index.html", 
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-44px.png",
+        "sizes": "44x44",
+        "type": "image/png",
+        "purpose": "any"
+      },      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-50px.png",
+        "sizes": "50x50",
+        "type": "image/png",
+        "purpose": "any"
+      },      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-66px.png",
+        "sizes": "66x66",
+        "type": "image/png",
+        "purpose": "any"
+      },      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-71px.png",
+        "sizes": "71x71",
+        "type": "image/png",
+        "purpose": "any"
+      },      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-128px.png",
+        "sizes": "128x128",
+        "type": "image/png",
+        "purpose": "any"
+      },      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-150px.png",
+        "sizes": "150x150",
+        "type": "image/png",
+        "purpose": "any"
+      },      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-192px.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any"
+      },      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-310px.png",
+        "sizes": "310x310",
+        "type": "image/png",
+        "purpose": "any"
+      },      {
+        "src": "/TripleCrypt/assets/images/other/TC-600dpi-512px.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any"
+      }
+    ]
+  }
+ 
