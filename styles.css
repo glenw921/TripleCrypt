@@ -83,12 +83,25 @@ body {
   padding: var(--spacing-medium);
 }
 
+button {
+  padding: 2px 6px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 h1 {
   color: var(--text-heading-color);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
 }
 
 h2 {
+  color: var(--text-secondary-color);
+}
+
+h3 {
   color: var(--text-secondary-color);
 }
 
