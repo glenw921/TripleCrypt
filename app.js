@@ -9,6 +9,7 @@ if ('serviceWorker' in navigator) {
   });
 }
   
+/*
 // Simple notification functionality
 document.getElementById('notify-btn').addEventListener('click', () => {
   if (Notification.permission === 'granted') {
@@ -21,4 +22,5 @@ document.getElementById('notify-btn').addEventListener('click', () => {
     });
   }
 });
+*/
   

@@ -1,8 +1,113 @@
+/* ===BEGIN: CSS Variables ========================================================================================== */
+:root {
+  --background-color: #000000; /* Black */
+  --header-background-color: #000000; /* Black */
+  --text-color: #ffffff; /* White */
+  --text-heading-color: #00ac19; /* Green */ /*#bb86fc;  /*Light purple */
+  --text-secondary-color: #005302; /* Dark Green */ /*#e0e0e0; /* Light gray */
+  --blockquote-border-color: #005302; /* Dark Green */ /*#bb86fc; /* Light purple */
+  --fieldset-border-color: #005302; /* Dark Green */ /*#444; /* Dark gray */
+  --pre-background-color: #2c2c2c; /* Dark gray */
+  --input-background-color: #2c2c2c; /* Dark gray */
+  --button-background-color: #00ac19; /* Green */ /*#bb86fc; /* Light purple */
+  --button-hover-background-color: #ffffff; /* White */
+  --button-hover-text-color: #121212; /* Dark background */
+  --table-border-color: #005302; /* Dark Green */ /*#444; /* Dark gray */
+  --table-header-background-color: #333; /* Darker gray */
+  --alert-background-color: #ff5252; /* Red */
+  --footer-background-color: #000000; /* Black */
+
+  --spacing-small: 10px; /* Small spacing */
+  --spacing-medium: 20px; /* Medium spacing */
+  --spacing-large: 40px; /* Large spacing */
+  --border-radius: 5px; /* Rounded corners */
+  --font-line-height: 1.5; /* Line height for all text */
+  --font-size-base: 100%; /* Base font size */
+  --font-size-heading: 150%; /* Heading font size */
+  --font-size-small: 85%; /* Small text size */
+  --font-size-tiny: 65%; /* Small text size */
+  --transition-duration: 0.3s; /* Standard transition duration */
+}
+/* ===END: CSS Variables ========================================================================================== */
+
+
+/* ===BEGIN: Font Confiturations ========================================================================================== */
+@font-face { /* For all UI element text, not user content. */
+  font-family: 'robotoregular';
+  /*src: url('../assets/fonts/roboto-regular-webfont.woff2') format('woff2');*/
+  src: url('./assets/fonts/roboto-regular-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face { /* For all user content, not UI element text. */
+  font-family: 'atkinson_hyperlegibleregular';
+  /*src: url('../assets/fonts/atkinsonhyperlegible-regular-webfont.woff2') format('woff2');*/
+  src: url('assets/fonts/atkinsonhyperlegible-regular-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-fontRole="content"] {
+  font-family: atkinson_hyperlegibleregular, serif; /* Font for all user content, not UI element text. */
+}
+[data-fontRole="control"] {
+  font-family: robotoregular, sans-serif; /* Font for UI elements, not user content. */
+  line-height: 1.25;
+}
+/* ===END: Font Confiturations ========================================================================================== */
+
+
+/* ===BEGIN: Global Settings ========================================================================================== */
+html {
+  /*height: 100%;*/
+  box-sizing: border-box; /* Make all elements measure 'height' and 'width' inclusive of boarders. */
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; /* Will inherit from <html> element. */
+}
+/* ===END: Global Settings ========================================================================================== */
+
+
+/* ===BEGIN: Element Selectors ========================================================================================== */
+/* ...... everywhere ....... */
 body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-  }
-  h1 {
-    color: #333;
-  }
+  font-family: 'robotoregular', sans-serif;  /* This font will cascade to all child elements. */
+  line-height: var(--font-line-height);
+  font-size: var(--font-size-base);
+  text-align: center;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  padding: var(--spacing-medium);
+}
+
+h1 {
+  color: var(--text-heading-color);
+  letter-spacing: 0.1em;
+}
+
+h2 {
+  color: var(--text-secondary-color);
+}
+
+/* ...... <header> section....... */
+
+
+/* ...... <main> section ....... */
+
+
+/* ...... <footer> section ....... */
+footer {
+  color: var(--text-secondary-color);
+  font-size: var(--font-size-small);
+}
+
+#eParDeployNumber {
+  font-size: var(--font-size-tiny);
+}
+
+
+/* ===END: Element Selectors ========================================================================================== */
   
